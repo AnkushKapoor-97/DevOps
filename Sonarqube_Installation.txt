@@ -134,6 +134,124 @@ sonar.jdbc.url=jdbc:postgresql://localhost:5432/sonarqube
 
 Save and exit the file.
 
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+# cd /opt/sonarqube
+
+# nano /opt/sonarqube/bin/linux-x86-64/sonar.sh
+
+	-> Add the line below two lines of shebang
+
+RUN_AS_USER=sonar
+
+	-> Save and Exit file
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+ Setup Systemd service
+ Create a systemd service file to start SonarQube at system boot.
+
+# nano /etc/systemd/system/sonar.service
+
+Paste the following lines
+-------------------------
+
+[Unit]
+Description=SonarQube service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+ExecStart=/opt/sonarqube/bin/linux-x86-64/sonar.sh start
+ExecStop=/opt/sonarqube/bin/linux-x86-64/sonar.sh stop
+
+User=sonar
+Group=sonar
+Restart=always
+
+LimitNOFILE=65536
+LimitNPROC=4096
+
+[Install]
+WantedBy=multi-user.target
+
+----------------------------------
+
+# systemctl daemon-reload
+
+# sudo systemctl enable sonar
+
+# sudo systemctl start sonar
+
+# sudo systemctl status sonar
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Modify Kernel System Limits
+---------------------------
+
+SonarQube uses Elasticsearch to store its indices in an MMap FS directory. It requires some changes to the system defaults.
+
+# cd /opt/sonarqube
+
+# ls
+
+# cd logs
+
+# ls
+
+# cat sonar.log
+		>> It will show sonarqube is stopped in the logs.
+
+# vim es.log
+
+# tail -f es.log    
+		>> Heap Size error will show up
+
+# sudo nano /etc/sysctl.conf
+
+	-> Add the following lines after first commented paragraph making one line space above and below
+
+vm.max_map_count=262144
+fs.file-max=65536
+ulimit -n 65536
+ulimit -u 4096
+
+	-> Save and Exit file
+
+# init 6 or reboot
+
+---------------------------------
+
+# systemctl status sonar.service
+
+# cd /opt/sonarqube
+
+# ls
+
+# cd logs
+
+# tail -f sonar.log
+
+		>> Elasticsearch is now up and running and Processes are up
+
+# tail -f es.log
+--------------------------------------------------------
+
+ 	-> Access SonarQube Web Interface
+
+ 	->Access SonarQube in a web browser at your server's IP address on port 9000. For example:
+
+http://IP:9000
+ 	->Log in with username admin and password admin. SonarQube will prompt you to change your password.
+
+ 
+
+ 
+
+# 
  
 
 
