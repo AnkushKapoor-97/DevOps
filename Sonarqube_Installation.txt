@@ -32,6 +32,8 @@ Sonarqube Installation on Ubuntu
  
 # sudo systemctl start postgresql
 
+# sudo systemctl start postgresql
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 
 	->  Change the default PostgreSQL password.
@@ -47,6 +49,29 @@ Sonarqube Installation on Ubuntu
 # createuser sonar
 
 	-> Log in to PostgreSQL.
+
+# psql
+
+ALTER USER sonar WITH ENCRYPTED password 'hpcsa';
+
+CREATE DATABASE sonarqube OWNER sonar;
+
+GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar;
+
+\l
+
+\q
+
+# exit
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 
