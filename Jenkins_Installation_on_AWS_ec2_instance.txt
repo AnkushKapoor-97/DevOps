@@ -1,25 +1,30 @@
-1-Add the Jenkins repo
+**************************************************
+Jenkins Installation on ec2 instance on AWS cloud
+**************************************************
 
-wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+1) Add the Jenkins repo
 
-2- Import a key file from Jenkins-CI to enable installation from the package
+# wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
 
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+2) Import a key file from Jenkins-CI to enable installation from the package
 
-3-Install Jenkins
+# rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
 
-yum -y install jenkins
+3) Install Jenkins
 
-4-Start Jenkins as a service
+# yum -y install jenkins
 
-systemctl start jenkins
+4) Start Jenkins as a service
 
-systemctl enable jenkins
+# systemctl start jenkins
 
-5-check jenkins server is opening or not by giving ec2 ip
- http://{YOUR_EC2_SERVER_IP}:8080
+# systemctl enable jenkins
 
-6- get initial admin password 
-cat /var/lib/jenkins/secrets/initialAdminPassword
+5) Check jenkins server is opening or not by giving ec2 ip
+# http://{YOUR_EC2_SERVER_IP}:8080
 
-7- create your profile in jenkins then login
+6) Get initial admin password 
+# cat /var/lib/jenkins/secrets/initialAdminPassword
+
+7) create your profile in jenkins then login
+__________________________________________________________________________________________
