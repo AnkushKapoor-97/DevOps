@@ -33,7 +33,7 @@ Sonarqube Installation on Ubuntu
  
 # sudo systemctl start postgresql
 
-# sudo systemctl start postgresql
+# sudo systemctl status postgresql
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 
