@@ -1,6 +1,6 @@
-*********************************
-Sonarqube Installation on Ubuntu
-*********************************
+***********************************
+ Sonarqube Installation on Ubuntu
+***********************************
 
 # cat /etc/os-release
 
